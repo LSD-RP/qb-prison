@@ -96,7 +96,7 @@ Config.Locations = {
 Config.CanteenItems = {
     [1] = {
         name = "sandwich",
-        price = 4,
+        price = 0,
         amount = 50,
         info = {},
         type = "item",
@@ -104,10 +104,18 @@ Config.CanteenItems = {
     },
     [2] = {
         name = "water_bottle",
-        price = 4,
+        price = 0,
         amount = 50,
         info = {},
         type = "item",
         slot = 2
+    },
+    [3] = {
+        name = "cigs",
+        price = 0,
+        amount = 50,
+        info = {},
+        type = "item",
+        slot = 3
     }
 }

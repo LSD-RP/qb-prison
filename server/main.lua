@@ -92,3 +92,9 @@ end)
 QBCore.Functions.CreateCallback('prison:server:IsAlarmActive', function(source, cb)
     cb(AlarmActivated)
 end)
+
+QBCore.Commands.Add("jailtime", "Check how long you have left in prison", {}, true, function(source, args)
+    local src = source
+    local Player = QBCore.Functions.GetPlayer(src)
+    TriggerClientEvent('QBCore:Notify', 'You have ' .. Player.PlayerData.metadata['injail'] .. ' months left in jail')
+end)
