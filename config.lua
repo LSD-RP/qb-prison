@@ -1,6 +1,6 @@
 Config = {}
 
-Config.UseTarget = GetConvar('UseTarget', 'false') == 'true' -- Use qb-target interactions (don't change this, go to your server.cfg and add `setr UseTarget true` to use this and just that from true to false or the other way around)
+Config.UseTarget = false -- Use qb-target interactions (don't change this, go to your server.cfg and add `setr UseTarget true` to use this and just that from true to false or the other way around)
 
 Config.Jobs = {
     ["electrician"] = "Electrician"
@@ -120,4 +120,28 @@ Config.CanteenItems = {
         type = "item",
         slot = 3
     }
+}
+
+Config.PrisonZone = {
+    ['Shape'] = {
+        vector2(1653.3432617188, 2406.0771484375),
+        vector2(1667.4337158204, 2403.5119628906),
+        vector2(1758.803100586, 2416.6584472656),
+        vector2(1814.3153076172, 2474.7607421875),
+        vector2(1818.541381836, 2480.3405761718),
+        vector2(1811.7728271484, 2531.873046875),
+        vector2(1814.7709960938, 2564.0520019532),
+        vector2(1849.0104980468, 2562.9182128906),
+        vector2(1853.7305908204, 2617.8864746094),
+        vector2(1814.2161865234, 2618.4948730468),
+        vector2(1840.859008789, 2698.6411132812),
+        vector2(1771.6795654296, 2754.6206054688),
+        vector2(1656.7502441406, 2751.2915039062),
+        vector2(1577.4044189454, 2677.3635253906),
+        vector2(1542.0612792968, 2588.1259765625),
+        vector2(1546.8830566406, 2476.7849121094),
+        vector2(1549.676147461, 2471.6616210938)
+    },
+    ['minZ'] = 10.00,
+    ['maxZ'] = 70.00,
 }

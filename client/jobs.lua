@@ -72,13 +72,13 @@ local function jobstart(currentJob, currentLocation)
             })
             electricityzone:onPlayerInOut(function(isPointInside)
                 if isPointInside then
-                    exports['qb-drawtext']:DrawText('[E] Electricity Work', 'left')
+                    exports['qb-core']:DrawText('[E] Electricity Work', 'left')
                     if IsControlJustReleased(0, 38) then
                         TriggerEvent("qb-prison:electrician:work")
                         electricityzone:destroy()
                     end
                 else
-                    exports['qb-drawtext']:HideText()
+                    exports['qb-core']:HideText()
                 end
             end)
         end)

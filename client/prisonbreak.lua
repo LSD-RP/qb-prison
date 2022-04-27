@@ -3,6 +3,8 @@ local requiredItemsShowed = false
 local requiredItems = {}
 local inRange = false
 local securityLockdown = false
+inPrisonZone = false
+
 
 local Gates = {
     [1] = {
@@ -188,10 +190,12 @@ CreateThread(function()
 end)
 
 CreateThread(function()
+    createPrisonZone(Config.PrisonZone['Shape'], 'prison')
 	while true do
 		Wait(7)
 		local pos = GetEntityCoords(PlayerPedId(), true)
-        if #(pos - vector3(Config.Locations["middle"].coords.x, Config.Locations["middle"].coords.y, Config.Locations["middle"].coords.z)) > 200 and inJail then
+        if not inPrisonZone and inJail then
+        -- if #(pos - vector3(Config.Locations["middle"].coords.x, Config.Locations["middle"].coords.y, Config.Locations["middle"].coords.z)) > 200 and inJail then
 			inJail = false
             jailTime = 0
             RemoveBlip(currentBlip)
@@ -211,3 +215,15 @@ CreateThread(function()
 		end
 	end
 end)
+
+function createPrisonZone(zoneShape, name)
+    local zone = PolyZone:Create(zoneShape, {  -- create the zone
+        name= name,
+        minZ = zoneShape.minZ,
+        maxZ = zoneShape.maxZ
+    })
+    
+    zone:onPlayerInOut(function(isPointInside)
+        inPrisonZone = isPointInside
+    end)
+end

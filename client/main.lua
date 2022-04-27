@@ -136,6 +136,7 @@ RegisterNetEvent('QBCore:Client:OnPlayerUnload', function()
 end)
 
 RegisterNetEvent('prison:client:Enter', function(time)
+	inPrisonZone = true
 	QBCore.Functions.Notify( Lang:t("error.injail", {Time = time}), "error")
 
 	TriggerEvent("chatMessage", "SYSTEM", "warning", "Your property has been seized, you'll get everything back when your time is up..")
@@ -321,3 +322,4 @@ CreateThread(function()
 		interaction()
     end
 end)
+
