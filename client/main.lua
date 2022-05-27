@@ -247,6 +247,10 @@ CreateThread(function()
 	end
 end)
 
+RegisterNetEvent('qb-prison:client:SetJailTime', function(time)
+	jailTime = time
+end)
+
 freedom = BoxZone:Create(vector3(Config.Locations["freedom"].coords.x, Config.Locations["freedom"].coords.y, Config.Locations["freedom"].coords.z), 2.75, 2.75, {
 	name="freedom",
 	debugPoly = false,

@@ -98,3 +98,12 @@ QBCore.Commands.Add("jailtime", "Check how long you have left in prison", {}, tr
     local Player = QBCore.Functions.GetPlayer(src)
     TriggerClientEvent('QBCore:Notify', src, 'You have ' .. Player.PlayerData.metadata['injail'] .. ' months left in jail')
 end)
+
+QBCore.Commands.Add("setjailtime", "Set Time in Prison (Admin Only)", {{name = "source"}, {name = "time"}}, true, function(source, args)
+    
+    if tonumber(args[1]) and tonumber(args[2]) then
+        TriggerClientEvent('qb-prison:client:SetJailTime', tonumber(args[1]), tonumber(args[2]))
+    else
+        TriggerClientEvent('QBCore:Notify', src, 'Error')
+    end
+end, "god")
