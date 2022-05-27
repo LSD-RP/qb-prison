@@ -4,6 +4,21 @@ local isWorking = false
 
 -- Functions
 
+local function DrawText3D(x, y, z, text)
+    SetTextScale(0.35, 0.35)
+    SetTextFont(4)
+    SetTextProportional(1)
+    SetTextColour(255, 255, 255, 215)
+    SetTextEntry("STRING")
+    SetTextCentre(true)
+    AddTextComponentString(text)
+    SetDrawOrigin(x,y,z, 0)
+    DrawText(0.0, 0.0)
+    local factor = (string.len(text)) / 370
+    DrawRect(0.0, 0.0+0.0125, 0.017+ factor, 0.03, 0, 0, 0, 75)
+    ClearDrawOrigin()
+end
+
 local function CreateJobBlip()
     if currentLocation ~= 0 then
         if DoesBlipExist(currentBlip) then
@@ -66,21 +81,23 @@ local function jobstart(currentJob, currentLocation)
         })
     else
         CreateThread(function()
-            local electricityzone = BoxZone:Create(vector3(Config.Locations.jobs[currentJob][currentLocation].coords.x, Config.Locations.jobs[currentJob][currentLocation].coords.y, Config.Locations.jobs[currentJob][currentLocation].coords.z), 3.0, 5.0, {
-                name="electricity",
-                debugPoly=false,
-            })
-            electricityzone:onPlayerInOut(function(isPointInside)
-                if isPointInside then
-                    exports['qb-core']:DrawText('[E] Electricity Work', 'left')
-                    if IsControlJustReleased(0, 38) then
-                        TriggerEvent("qb-prison:electrician:work")
-                        electricityzone:destroy()
-                    end
-                else
-                    exports['qb-core']:HideText()
-                end
-            end)
+            
+            
+            -- local electricityzone = BoxZone:Create(vector3(Config.Locations.jobs[currentJob][currentLocation].coords.x, Config.Locations.jobs[currentJob][currentLocation].coords.y, Config.Locations.jobs[currentJob][currentLocation].coords.z), 3.0, 5.0, {
+            --     name="electricity",
+            --     debugPoly=false,
+            -- })
+            -- electricityzone:onPlayerInOut(function(isPointInside)
+            --     if isPointInside then
+            --         exports['qb-core']:DrawText('[E] Electricity Work', 'left')
+            --         if IsControlJustReleased(0, 38) then
+            --             TriggerEvent("qb-prison:electrician:work")
+            --             electricityzone:destroy()
+            --         end
+            --     else
+            --         exports['qb-core']:HideText()
+            --     end
+            -- end)
         end)
     end
 end
@@ -118,7 +135,17 @@ CreateThread(function()
                 if not DoesBlipExist(currentBlip) then
                     CreateJobBlip()
                 end
-                jobstart(currentJob, currentLocation)
+                -- jobstart(currentJob, currentLocation)
+                local pos = GetEntityCoords(PlayerPedId())
+                local loc = vector3(Config.Locations.jobs[currentJob][currentLocation].coords.x, Config.Locations.jobs[currentJob][currentLocation].coords.y, Config.Locations.jobs[currentJob][currentLocation].coords.z)
+                -- print(loc)
+                if #(pos - loc) < 2 then
+                    -- print("draw")
+                    DrawText3D(Config.Locations.jobs[currentJob][currentLocation].coords.x, Config.Locations.jobs[currentJob][currentLocation].coords.y, Config.Locations.jobs[currentJob][currentLocation].coords.z, '~y~[E]~w~ Do Work')
+                    if IsControlJustReleased(0, 38) then
+                        TriggerEvent("qb-prison:electrician:work")
+                    end
+                end
             else
                 currentLocation = math.random(1, #Config.Locations.jobs[currentJob])
                 CreateJobBlip()
